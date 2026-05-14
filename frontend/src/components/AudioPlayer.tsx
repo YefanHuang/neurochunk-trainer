@@ -10,7 +10,7 @@ import { WaveformVisualizer } from "./WaveformVisualizer";
 export function AudioPlayer() {
   const [isRecording, setIsRecording] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(33); // Mock progress
+  const [progress, setProgress] = useState<number>(33); // Mock progress
 
   const toggleRecording = () => {
     if (isPlaying) setIsPlaying(false);
@@ -39,7 +39,7 @@ export function AudioPlayer() {
             <span>00:12</span>
             <span>01:45</span>
           </div>
-          <Slider value={[progress]} max={100} step={1} className="w-full" onValueChange={(v) => setProgress(v[0])} />
+          <Slider value={[progress]} max={100} step={1} className="w-full" onValueChange={(v) => { const val = Array.isArray(v) ? v[0] : v; setProgress(val as number); }} />
         </div>
 
         <div className="flex justify-center items-center gap-6 pt-4">
