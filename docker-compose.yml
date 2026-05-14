@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MIMO_API_KEY=${MIMO_API_KEY}
+      - MIMO_API_BASE_URL=${MIMO_API_BASE_URL:-https://api.xiaomimimo.com/v2.5}
+      - FRONTEND_URL=http://localhost:3000
+    volumes:
+      - ./backend/app:/app/app
+    restart: unless-stopped
+
+  # Optional: For full-stack local deployment, uncomment frontend block
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+  #   depends_on:
+  #     - backend
